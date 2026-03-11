@@ -1,0 +1,11 @@
+2026-03-11T11:44:58.992+03:00  INFO 12789 --- [user-service] [main] c.k.t.UserServiceApplication             : Starting UserServiceApplication using Java 17.0.16 with PID 12789 (/home/ba/IdeaProjects/tour-user-service/target/classes started by ba in /home/ba/IdeaProjects/tour-user-service)
+2026-03-11T11:44:58.996+03:00  INFO 12789 --- [user-service] [main] c.k.t.UserServiceApplication             : No active profile set, falling back to 1 default profile: "default"
+2026-03-11T11:44:59.756+03:00  INFO 12789 --- [user-service] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 9193 (http)
+2026-03-11T11:44:59.766+03:00  INFO 12789 --- [user-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-11T11:44:59.767+03:00  INFO 12789 --- [user-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-11T11:44:59.801+03:00  INFO 12789 --- [user-service] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 755 ms
+2026-03-11T11:45:00.196+03:00  INFO 12789 --- [user-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-03-11T11:45:00.235+03:00  INFO 12789 --- [user-service] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 9193 (http) with context path '/'
+2026-03-11T11:45:00.241+03:00  INFO 12789 --- [user-service] [main] c.k.t.UserServiceApplication             : Started UserServiceApplication in 1.728 seconds (process running for 2.18)
+2026-03-11T11:48:49.800+03:00  INFO 12789 --- [user-service] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-11T11:48:49.805+03:00  INFO 12789 --- [user-service] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
