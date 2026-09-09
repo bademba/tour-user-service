@@ -3,15 +3,16 @@ package com.kendirita.tour_user_service.dto;
 
 import com.kendirita.tour_user_service.entity.UserRole;
 
-public class RoleResponse {
+public class UserRoleResponse {
     private String id;
     private String role;
+    private String email;
 
-    public static RoleResponse from(UserRole userRole){
+    public static UserRoleResponse from(UserRole userRole){
         if (userRole==null || userRole.getRole() == null){
             return null;
         }
-        RoleResponse dto =new RoleResponse();
+        UserRoleResponse dto =new UserRoleResponse();
         dto.role= userRole.getRole().name();
         return dto;
     }

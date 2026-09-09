@@ -1,12 +1,19 @@
 package com.kendirita.tour_user_service.service;
 
+import com.kendirita.tour_user_service.config.WebClientConfig;
+import com.kendirita.tour_user_service.dto.ApiResponse;
+import com.kendirita.tour_user_service.dto.UserProfileResponse;
+import com.kendirita.tour_user_service.dto.UserRoleResponse;
 import com.kendirita.tour_user_service.entity.Profile;
 import com.kendirita.tour_user_service.entity.User;
 import com.kendirita.tour_user_service.entity.UserRole;
 import com.kendirita.tour_user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +22,15 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WebClient webClient;
+
+    @Value("${services.user-roles.url}")
+    private String userRolesServiceUrl;
+
+    @Value("${services.user-profile.url}")
+    private String userProfileServiceUrl;
 
     //create new user
     @Transactional
@@ -43,7 +59,21 @@ public class UserService {
 
     //search user by email
     public User searchByEmail(String email){
-        return userRepository.searchByEmail(email);
+        User user = userRepository.searchByEmail(email);
+        if (user ==null){
+            return null;
+        }
+
+        //Call user role and user profile services
+        UserRoleResponse userRole = getUserRole(email);
+        UserProfileResponse profile =getUserProfile(email);
+
+        //Attach responses to user
+        user.setUserRole(userRole);
+        user.setProfile(profile);
+
+        return user;
+//        return userRepository.searchByEmail(email);
     }
 
     //fetch all users
@@ -59,4 +89,29 @@ public class UserService {
         userRepository.delete(user.get());
         return true;
     }
+
+    private UserRoleResponse getUserRole(String email) {
+
+        ApiResponse<UserRoleResponse> response = webClient
+                .get()
+                .uri( userRolesServiceUrl+"/v2/tour/users/user-role/{email}", email)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UserRoleResponse>>() {})
+                .block();
+
+        return response != null ? response.getData() : null;
+    }
+
+    private UserProfileResponse getUserProfile(String email) {
+
+        ApiResponse<UserProfileResponse> response = webClient
+                .get()
+                .uri(userProfileServiceUrl+"/v2/tour/users/user-profile/{email}", email)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UserProfileResponse>>() {})
+                .block();
+
+        return response != null ? response.getData() : null;
+    }
+
 }

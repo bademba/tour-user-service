@@ -13,8 +13,8 @@ public class UserResponse {
     private String fullName;
     private Date createdAt;
     private Date updatedAt;
-    private ProfileResponse profile;
-    private RoleResponse userRole;
+    private UserProfileResponse profile;
+    private UserRoleResponse userRole;
 
     public static UserResponse from(User user) {
 
@@ -24,8 +24,8 @@ public class UserResponse {
         dto.fullName = user.getFullName();
         dto.createdAt = user.getCreatedAt();
         dto.updatedAt = user.getUpdatedAt();
-        dto.profile = ProfileResponse.from(user.getProfile());
-        dto.userRole = RoleResponse.from(user.getUserRole());
+        dto.profile = UserProfileResponse.from(user.getProfile());
+        dto.userRole = UserRoleResponse.from(user.getUserRole());
 
         return dto;
     }
@@ -50,11 +50,11 @@ public class UserResponse {
         return updatedAt;
     }
 
-    public ProfileResponse getProfile() {
+    public UserProfileResponse getProfile() {
         return profile;
     }
 
-    public RoleResponse getUserRole() {
+    public UserRoleResponse getUserRole() {
         return userRole;
     }
 

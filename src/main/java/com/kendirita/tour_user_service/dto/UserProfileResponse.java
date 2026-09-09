@@ -2,20 +2,27 @@ package com.kendirita.tour_user_service.dto;
 
 
 import com.kendirita.tour_user_service.entity.Profile;
+import java.util.Date;
 
-public class ProfileResponse {
+public class UserProfileResponse {
 
     private String id;
     private String phone;
     private String avatarUrl;
+    private Date createdAt;
+    private String email;
+    private Date updatedAt;
 
-    public static ProfileResponse from(Profile profile) {
+    public static UserProfileResponse from(Profile profile) {
         if (profile == null) return null;
 
-        ProfileResponse dto = new ProfileResponse();
+        UserProfileResponse dto = new UserProfileResponse();
         dto.id = profile.getId();
         dto.phone = profile.getPhone();
         dto.avatarUrl = profile.getAvatarUrl();
+        dto.email= profile.getEmail();
+        dto.createdAt = profile.getCreatedAt();
+        dto.updatedAt= profile.getUpdatedAt();
         return dto;
     }
 
