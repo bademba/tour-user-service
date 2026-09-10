@@ -31,24 +31,24 @@ public class UserController {
             return ResponseHandler.generateResponse(UUID.randomUUID(), "User already exists", HttpStatus.CONFLICT, null, TimestampUtil.now()
             );
         }
-        return ResponseHandler.generateResponse(UUID.randomUUID(), "User created", HttpStatus.CREATED, UserResponse.from(createdUser),TimestampUtil.now());
+        return ResponseHandler.generateResponse(UUID.randomUUID(), "User created", HttpStatus.CREATED, createdUser,TimestampUtil.now());
     }
 
     @GetMapping("/users/{email}")
     public ResponseEntity<Object> searchByEmail(@PathVariable String email){
-        User userEmail = userService.searchByEmail(email);
-        if(userEmail==null){
+        UserResponse userResponse = userService.getUserDetails(email);
+        if (userResponse ==null){
             return ResponseHandler.generateResponse(UUID.randomUUID(),"User not found",HttpStatus.NOT_FOUND,null,TimestampUtil.now());
         }
-        return ResponseHandler.generateResponse(UUID.randomUUID(),"User details found",HttpStatus.OK,UserResponse.from(userEmail),TimestampUtil.now());
+        return ResponseHandler.generateResponse(UUID.randomUUID(),"User details found",HttpStatus.OK,userResponse,TimestampUtil.now());
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<Object> listUsers(){
-        List<User> users =userService.listUsers();
-        List<UserResponse> userResponses =users.stream().map(UserResponse::from).toList();
-        return ResponseHandler.generateResponse(UUID.randomUUID(),"Users found",HttpStatus.OK,userResponses,TimestampUtil.now());
-    }
+//    @GetMapping("/users")
+//    public ResponseEntity<Object> listUsers(){
+//        List<User> users =userService.listUsers();
+//        List<UserResponse> userResponses =users.stream().map(UserResponse::from).toList();
+//        return ResponseHandler.generateResponse(UUID.randomUUID(),"Users found",HttpStatus.OK,userResponses,TimestampUtil.now());
+//    }
 
     @PutMapping("/users/{email}")
     public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable String email){
@@ -64,7 +64,7 @@ public class UserController {
             currentUser.getProfile().setAvatarUrl(user.getProfile().getAvatarUrl());
         }
         User updatedUser =userRepository.save(currentUser);
-        return ResponseHandler.generateResponse(UUID.randomUUID(),"User updated",HttpStatus.OK,UserResponse.from(updatedUser),TimestampUtil.now());
+        return ResponseHandler.generateResponse(UUID.randomUUID(),"User updated",HttpStatus.OK,updatedUser,TimestampUtil.now());
     }
 
     @DeleteMapping("/users/{email}")
