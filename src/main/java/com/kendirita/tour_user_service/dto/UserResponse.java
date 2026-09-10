@@ -16,7 +16,7 @@ public class UserResponse {
     private UserProfileResponse profile;
     private UserRoleResponse userRole;
 
-    public static UserResponse from(User user) {
+    public static UserResponse from(User user,UserRoleResponse userRole,UserProfileResponse profile) {
 
         UserResponse dto = new UserResponse();
         dto.id = user.getId();
@@ -24,8 +24,8 @@ public class UserResponse {
         dto.fullName = user.getFullName();
         dto.createdAt = user.getCreatedAt();
         dto.updatedAt = user.getUpdatedAt();
-        dto.profile = UserProfileResponse.from(user.getProfile());
-        dto.userRole = UserRoleResponse.from(user.getUserRole());
+        dto.profile = profile;
+        dto.userRole = userRole;
 
         return dto;
     }

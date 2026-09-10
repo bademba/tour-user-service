@@ -3,6 +3,7 @@ package com.kendirita.tour_user_service.service;
 import com.kendirita.tour_user_service.config.WebClientConfig;
 import com.kendirita.tour_user_service.dto.ApiResponse;
 import com.kendirita.tour_user_service.dto.UserProfileResponse;
+import com.kendirita.tour_user_service.dto.UserResponse;
 import com.kendirita.tour_user_service.dto.UserRoleResponse;
 import com.kendirita.tour_user_service.entity.Profile;
 import com.kendirita.tour_user_service.entity.User;
@@ -57,23 +58,27 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    //search user by email
-    public User searchByEmail(String email){
+    //Fetch user  + profile + role
+    public UserResponse getUserDetails(String email){
         User user = userRepository.searchByEmail(email);
-        if (user ==null){
+        if (user == null){
             return null;
         }
 
-        //Call user role and user profile services
-        UserRoleResponse userRole = getUserRole(email);
-        UserProfileResponse profile =getUserProfile(email);
+        //Call user role service
+        UserRoleResponse userRole =getUserRole(email);
 
-        //Attach responses to user
-        user.setUserRole(userRole);
-        user.setProfile(profile);
+        //Call  user profile service
+        UserProfileResponse profile = getUserProfile(email);
 
-        return user;
-//        return userRepository.searchByEmail(email);
+        //consolidate the response
+        return UserResponse.from(user,userRole,profile);
+    }
+
+
+    //search user by email
+    public User searchByEmail(String email){
+        return userRepository.searchByEmail(email);
     }
 
     //fetch all users

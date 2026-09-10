@@ -1,40 +1,42 @@
 package com.kendirita.tour_user_service.dto;
 
-
-import com.kendirita.tour_user_service.entity.Profile;
-import java.util.Date;
-
 public class UserProfileResponse {
 
-    private String id;
-    private String phone;
     private String avatarUrl;
-    private Date createdAt;
-    private String email;
-    private Date updatedAt;
+    private String createdAt;
+    private String phone;
+    private String updatedAt;
 
-    public static UserProfileResponse from(Profile profile) {
-        if (profile == null) return null;
 
-        UserProfileResponse dto = new UserProfileResponse();
-        dto.id = profile.getId();
-        dto.phone = profile.getPhone();
-        dto.avatarUrl = profile.getAvatarUrl();
-        dto.email= profile.getEmail();
-        dto.createdAt = profile.getCreatedAt();
-        dto.updatedAt= profile.getUpdatedAt();
-        return dto;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public String getId() {
-        return id;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

@@ -1,8 +1,5 @@
 package com.kendirita.tour_user_service.dto;
 
-//import lombok.Data;
-//
-//@Data
 public class ApiResponse<T> {
 
     private T data;
@@ -30,5 +27,25 @@ public class ApiResponse<T> {
 
     public String getTimestamp() {
         return timestamp;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setResponseId(String responseId) {
+        this.responseId = responseId;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
